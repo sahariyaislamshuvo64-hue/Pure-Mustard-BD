@@ -1,1 +1,525 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure Mustard BD - খাঁটি সরিষার তেল</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #d48806;
+            --primary-dark: #b37300;
+            --secondary-color: #222222;
+            --accent-color: #25d366;
+            --bg-color: #fdfbf7;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Background Text/Watermark */
+        body::before {
+            content: "Pure Mustard BD";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 8vw;
+            font-weight: 700;
+            color: rgba(212, 136, 6, 0.04);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header / Navbar */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 28px;
+        }
+
+        .social-links a {
+            color: #1877f2;
+            font-size: 24px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 25px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .hero-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            display: block;
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #f0e6d2;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .product-icon {
+            font-size: 60px;
+            color: var(--primary-color);
+            margin: 15px 0;
+        }
+
+        .product-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .price-box {
+            margin: 15px 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+
+        .new-price {
+            color: #d9534f;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .order-btn {
+            width: 100%;
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .order-btn:hover {
+            background-color: #1eb954;
+        }
+
+        /* Order Form Section */
+        .order-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #f0e6d2;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 40px 20px 20px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-socials a {
+            color: #fff;
+            font-size: 24px;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-socials a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 28px; }
+            .hero p { font-size: 15px; }
+            .section-title { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-bottle-droplet"></i> Pure Mustard BD
+            </a>
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1HVYmrATS4/" target="_blank" title="Facebook Page">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>১০০% খাঁটি কোল্ড প্রেসড সরিষার তেল</h1>
+        <p>স্বাস্থ্যকর ও শতভাগ ভেজালমুক্ত সরিষার তেল পৌছে যাবে সরাসরি আপনার দরজায়। আজই অর্ডার করুন!</p>
+        <a href="#products" class="hero-btn">অর্ডার করতে নিচে যান</a>
+    </section>
+
+    <!-- Main Content Container -->
+    <div class="container">
+        
+        <!-- Products Section -->
+        <h2 class="section-title" id="products">আমাদের তেল ও অফারসমূহ</h2>
+        <div class="products-grid">
+            
+            <!-- 250ml -->
+            <div class="product-card">
+                <span class="badge">অফার</span>
+                <div class="product-icon"><i class="fa-solid fa-bottle-droplet"></i></div>
+                <div class="product-title">২৫০ মিলি সরিষার তেল</div>
+                <div class="price-box">
+                    <span class="old-price">৳৮০</span>
+                    <span class="new-price">৳৬৫</span>
+                </div>
+                <button class="order-btn" onclick="selectProduct('250ml')">
+                    <i class="fa-brands fa-whatsapp"></i> অর্ডার করুন
+                </button>
+            </div>
+
+            <!-- 500ml -->
+            <div class="product-card">
+                <span class="badge">অফার</span>
+                <div class="product-icon"><i class="fa-solid fa-bottle-droplet"></i></div>
+                <div class="product-title">৫০০ মিলি সরিষার তেল</div>
+                <div class="price-box">
+                    <span class="old-price">৳১৬০</span>
+                    <span class="new-price">৳১২৫</span>
+                </div>
+                <button class="order-btn" onclick="selectProduct('500ml')">
+                    <i class="fa-brands fa-whatsapp"></i> অর্ডার করুন
+                </button>
+            </div>
+
+            <!-- 1L -->
+            <div class="product-card">
+                <span class="badge">সেরা অফার</span>
+                <div class="product-icon"><i class="fa-solid fa-bottle-droplet"></i></div>
+                <div class="product-title">১ লিটার সরিষার তেল</div>
+                <div class="price-box">
+                    <span class="old-price">৳৩২০</span>
+                    <span class="new-price">৳২৫০</span>
+                </div>
+                <button class="order-btn" onclick="selectProduct('1L')">
+                    <i class="fa-brands fa-whatsapp"></i> অর্ডার করুন
+                </button>
+            </div>
+
+            <!-- 2L -->
+            <div class="product-card">
+                <span class="badge">অফার</span>
+                <div class="product-icon"><i class="fa-solid fa-bottle-droplet"></i></div>
+                <div class="product-title">২ লিটার সরিষার তেল</div>
+                <div class="price-box">
+                    <span class="old-price">৳৬৪০</span>
+                    <span class="new-price">৳৫০০</span>
+                </div>
+                <button class="order-btn" onclick="selectProduct('2L')">
+                    <i class="fa-brands fa-whatsapp"></i> অর্ডার করুন
+                </button>
+            </div>
+
+            <!-- 5L -->
+            <div class="product-card">
+                <span class="badge">মেগা অফার</span>
+                <div class="product-icon"><i class="fa-solid fa-bottle-droplet"></i></div>
+                <div class="product-title">৫ লিটার সরিষার তেল</div>
+                <div class="price-box">
+                    <span class="old-price">৳১৬০০</span>
+                    <span class="new-price">৳১২৫০</span>
+                </div>
+                <button class="order-btn" onclick="selectProduct('5L')">
+                    <i class="fa-brands fa-whatsapp"></i> অর্ডার করুন
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Order Form Section -->
+        <h2 class="section-title" id="order-form">অর্ডার কনফার্ম করুন</h2>
+        <div class="order-section">
+            <form id="whatsappForm" onsubmit="sendToWhatsApp(event)">
+                <div class="form-group">
+                    <label for="name">আপনার নাম *</label>
+                    <input type="text" id="name" required placeholder="আপনার নাম লিখুন">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">মোবাইল নম্বর *</label>
+                    <input type="tel" id="phone" required placeholder="০১৭XXXXXXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">সম্পূর্ণ ঠিকানা *</label>
+                    <textarea id="address" rows="3" required placeholder="আপনার বাসা/গ্রাম, থানা, জেলা লিখুন"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="product">পণ্যের সাইজ সিলেক্ট করুন *</label>
+                    <select id="product" required>
+                        <option value="">-- নির্বাচন করুন --</option>
+                        <option value="250ml">২৫০ মিলি - ৳৬৫ (পূর্বের মূল্য ৳৮০)</option>
+                        <option value="500ml">৫০০ মিলি - ৳১২৫ (পূর্বের মূল্য ৳১৬০)</option>
+                        <option value="1L">১ লিটার - ৳২৫০ (পূর্বের মূল্য ৳৩২০)</option>
+                        <option value="2L">২ লিটার - ৳৫০০ (পূর্বের মূল্য ৳৬৪০)</option>
+                        <option value="5L">৫ লিটার - ৳১২৫০ (পূর্বের মূল্য ৳১৬০০)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">পরিমাণ (কয়টি বোতল/জার)</label>
+                    <input type="number" id="quantity" value="1" min="1" required>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fa-brands fa-whatsapp"></i> হোয়াটসঅ্যাপে অর্ডার পাঠালুন
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Pure Mustard BD</h3>
+            <p>আমাদের লক্ষ্য আপনাকে সম্পূর্ণ খাঁটি ও স্বাস্থ্যকর সরিষার তেল সরবরাহ করা।</p>
+            <div class="footer-socials">
+                <a href="https://www.facebook.com/share/1HVYmrATS4/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://wa.me/8801577298608" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <p style="font-size: 14px; opacity: 0.8;">&copy; 2026 Pure Mustard BD. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // প্রোডাক্ট কার্ড থেকে সরাসরি সিলেক্ট করা
+        function selectProduct(value) {
+            document.getElementById('product').value = value;
+            document.getElementById('order-form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // হোয়াটসঅ্যাপে মেসেজ পাঠানোর ফাংশন
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+
+            const myPhoneNumber = "8801577298608"; // আপনার হোয়াটসঅ্যাপ নম্বর
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const product = document.getElementById('product').value;
+            const quantity = document.getElementById('quantity').value;
+
+            // মেসজের টেক্সট ফরম্যাট
+            const message = `*নতুন অর্ডার (Pure Mustard BD)*%0A%0A` +
+                            `*নাম:* ${name}%0A` +
+                            `*ফোন নম্বর:* ${phone}%0A` +
+                            `*ঠিকানা:* ${address}%0A` +
+                            `*পণ্যের সাইজ:* ${product}%0A` +
+                            `*পরিমাণ:* ${quantity} টি%0A%0A` +
+                            `ধন্যবাদ!`;
+
+            // হোয়াটসঅ্যাপ লিঙ্ক তৈরি
+            const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${message}`;
+
+            // নতুন ট্যাবে হোয়াটসঅ্যাপ ওপেন করা
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+  </html>
