@@ -157,7 +157,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
 
         .product-card {
@@ -239,15 +239,27 @@
             background-color: #1eb954;
         }
 
-        /* Order Form Section */
+        /* Order Form Section (Initially Hidden) */
+        #order-container {
+            display: none; /* শুরুতে হাইড থাকবে */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            margin-top: 40px;
+        }
+
+        #order-container.active {
+            display: block;
+            opacity: 1;
+        }
+
         .order-section {
             background-color: var(--card-bg);
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             max-width: 600px;
             margin: 0 auto;
-            border: 1px solid #f0e6d2;
+            border: 2px solid var(--primary-color);
         }
 
         .form-group {
@@ -290,6 +302,89 @@
             background-color: var(--primary-dark);
         }
 
+        /* Modal / Review Window */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: #fff;
+            width: 100%;
+            max-width: 480px;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: popIn 0.3s ease-out;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-card h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid #f0e6d2;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 22px;
+            text-align: center;
+        }
+
+        .review-details p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .review-details strong {
+            color: #555;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn-confirm {
+            flex: 1;
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-cancel {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
         /* Footer */
         footer {
             background-color: var(--secondary-color);
@@ -319,7 +414,6 @@
             color: var(--primary-color);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .hero h1 { font-size: 28px; }
             .hero p { font-size: 15px; }
@@ -347,7 +441,7 @@
     <section class="hero">
         <h1>১০০% খাঁটি কোল্ড প্রেসড সরিষার তেল</h1>
         <p>স্বাস্থ্যকর ও শতভাগ ভেজালমুক্ত সরিষার তেল পৌছে যাবে সরাসরি আপনার দরজায়। আজই অর্ডার করুন!</p>
-        <a href="#products" class="hero-btn">অর্ডার করতে নিচে যান</a>
+        <a href="#products" class="hero-btn">আমাদের পণ্যসমূহ দেখুন</a>
     </section>
 
     <!-- Main Content Container -->
@@ -367,7 +461,7 @@
                     <span class="new-price">৳৬৫</span>
                 </div>
                 <button class="order-btn" onclick="selectProduct('250ml')">
-                    <i class="fa-brands fa-whatsapp"></i> অর্ডার করুন
+                    <i class="fa-solid fa-cart-shopping"></i> অর্ডার করুন
                 </button>
             </div>
 
@@ -381,7 +475,7 @@
                     <span class="new-price">৳১২৫</span>
                 </div>
                 <button class="order-btn" onclick="selectProduct('500ml')">
-                    <i class="fa-brands fa-whatsapp"></i> অর্ডার করুন
+                    <i class="fa-solid fa-cart-shopping"></i> অর্ডার করুন
                 </button>
             </div>
 
@@ -395,7 +489,7 @@
                     <span class="new-price">৳২৫০</span>
                 </div>
                 <button class="order-btn" onclick="selectProduct('1L')">
-                    <i class="fa-brands fa-whatsapp"></i> অর্ডার করুন
+                    <i class="fa-solid fa-cart-shopping"></i> অর্ডার করুন
                 </button>
             </div>
 
@@ -409,7 +503,7 @@
                     <span class="new-price">৳৫০০</span>
                 </div>
                 <button class="order-btn" onclick="selectProduct('2L')">
-                    <i class="fa-brands fa-whatsapp"></i> অর্ডার করুন
+                    <i class="fa-solid fa-cart-shopping"></i> অর্ডার করুন
                 </button>
             </div>
 
@@ -423,54 +517,76 @@
                     <span class="new-price">৳১২৫০</span>
                 </div>
                 <button class="order-btn" onclick="selectProduct('5L')">
-                    <i class="fa-brands fa-whatsapp"></i> অর্ডার করুন
+                    <i class="fa-solid fa-cart-shopping"></i> অর্ডার করুন
                 </button>
             </div>
 
         </div>
 
-        <!-- Order Form Section -->
-        <h2 class="section-title" id="order-form">অর্ডার কনফার্ম করুন</h2>
-        <div class="order-section">
-            <form id="whatsappForm" onsubmit="sendToWhatsApp(event)">
-                <div class="form-group">
-                    <label for="name">আপনার নাম *</label>
-                    <input type="text" id="name" required placeholder="আপনার নাম লিখুন">
-                </div>
+        <!-- Order Form Section (Initially Hidden) -->
+        <div id="order-container">
+            <h2 class="section-title" id="order-form-title">অর্ডার কনফার্ম করুন</h2>
+            <div class="order-section">
+                <form id="whatsappForm" onsubmit="openReviewModal(event)">
+                    <div class="form-group">
+                        <label for="name">আপনার নাম *</label>
+                        <input type="text" id="name" required placeholder="আপনার নাম লিখুন">
+                    </div>
 
-                <div class="form-group">
-                    <label for="phone">মোবাইল নম্বর *</label>
-                    <input type="tel" id="phone" required placeholder="০১৭XXXXXXXX">
-                </div>
+                    <div class="form-group">
+                        <label for="phone">মোবাইল নম্বর *</label>
+                        <input type="tel" id="phone" required placeholder="০১৭XXXXXXXX">
+                    </div>
 
-                <div class="form-group">
-                    <label for="address">সম্পূর্ণ ঠিকানা *</label>
-                    <textarea id="address" rows="3" required placeholder="আপনার বাসা/গ্রাম, থানা, জেলা লিখুন"></textarea>
-                </div>
+                    <div class="form-group">
+                        <label for="address">সম্পূর্ণ ঠিকানা *</label>
+                        <textarea id="address" rows="3" required placeholder="আপনার বাসা/গ্রাম, থানা, জেলা লিখুন"></textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label for="product">পণ্যের সাইজ সিলেক্ট করুন *</label>
-                    <select id="product" required>
-                        <option value="">-- নির্বাচন করুন --</option>
-                        <option value="250ml">২৫০ মিলি - ৳৬৫ (পূর্বের মূল্য ৳৮০)</option>
-                        <option value="500ml">৫০০ মিলি - ৳১২৫ (পূর্বের মূল্য ৳১৬০)</option>
-                        <option value="1L">১ লিটার - ৳২৫০ (পূর্বের মূল্য ৳৩২০)</option>
-                        <option value="2L">২ লিটার - ৳৫০০ (পূর্বের মূল্য ৳৬৪০)</option>
-                        <option value="5L">৫ লিটার - ৳১২৫০ (পূর্বের মূল্য ৳১৬০০)</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label for="product">পণ্যের সাইজ সিলেক্ট করুন *</label>
+                        <select id="product" required>
+                            <option value="">-- নির্বাচন করুন --</option>
+                            <option value="250ml">২৫০ মিলি - ৳৬৫ (পূর্বের মূল্য ৳৮০)</option>
+                            <option value="500ml">৫০০ মিলি - ৳১২৫ (পূর্বের মূল্য ৳১৬০)</option>
+                            <option value="1L">১ লিটার - ৳২৫০ (পূর্বের মূল্য ৳৩২০)</option>
+                            <option value="2L">২ লিটার - ৳৫০০ (পূর্বের মূল্য ৳৬৪০)</option>
+                            <option value="5L">৫ লিটার - ৳১২৫০ (পূর্বের মূল্য ৳১৬০০)</option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label for="quantity">পরিমাণ (কয়টি বোতল/জার)</label>
-                    <input type="number" id="quantity" value="1" min="1" required>
-                </div>
+                    <div class="form-group">
+                        <label for="quantity">পরিমাণ (কয়টি বোতল/জার)</label>
+                        <input type="number" id="quantity" value="1" min="1" required>
+                    </div>
 
-                <button type="submit" class="submit-btn">
-                    <i class="fa-brands fa-whatsapp"></i> হোয়াটসঅ্যাপে অর্ডার পাঠালুন
-                </button>
-            </form>
+                    <button type="submit" class="submit-btn">
+                        অর্ডার রিভিউ দেখুন <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
         </div>
 
+    </div>
+
+    <!-- Order Review Modal (পপ-আপ রিভ্যু উইন্ডো) -->
+    <div class="modal-overlay" id="reviewModal">
+        <div class="modal-card">
+            <h3><i class="fa-solid fa-clipboard-check"></i> অর্ডার রিভিউ</h3>
+            <div class="review-details">
+                <p><strong>নাম:</strong> <span id="rev-name"></span></p>
+                <p><strong>মোবাইল:</strong> <span id="rev-phone"></span></p>
+                <p><strong>ঠিকানা:</strong> <span id="rev-address"></span></p>
+                <p><strong>পণ্য:</strong> <span id="rev-product"></span></p>
+                <p><strong>পরিমাণ:</strong> <span id="rev-quantity"></span> টি</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">পরিবর্তন করুন</button>
+                <button class="btn-confirm" onclick="confirmAndSendWhatsApp()">
+                    <i class="fa-brands fa-whatsapp"></i> হ্যাঁ, নিশ্চিত করুন
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -487,39 +603,61 @@
     </footer>
 
     <script>
-        // প্রোডাক্ট কার্ড থেকে সরাসরি সিলেক্ট করা
+        // প্রোডাক্ট কার্ডের 'অর্ডার করুন' বাটনে ক্লিক করলে ফর্মটি দৃশ্যমান হবে
         function selectProduct(value) {
+            const container = document.getElementById('order-container');
+            container.classList.add('active');
             document.getElementById('product').value = value;
-            document.getElementById('order-form').scrollIntoView({ behavior: 'smooth' });
+            container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // হোয়াটসঅ্যাপে মেসেজ পাঠানোর ফাংশন
-        function sendToWhatsApp(e) {
+        // ফর্ম সাবমিট করার পর রিভিউ মোডাল/পপআপ উইন্ডো ওপেন হবে
+        function openReviewModal(e) {
             e.preventDefault();
-
-            const myPhoneNumber = "8801577298608"; // আপনার হোয়াটসঅ্যাপ নম্বর
 
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const address = document.getElementById('address').value;
-            const product = document.getElementById('product').value;
+            const productSelect = document.getElementById('product');
+            const productText = productSelect.options[productSelect.selectedIndex].text;
             const quantity = document.getElementById('quantity').value;
 
-            // মেসজের টেক্সট ফরম্যাট
+            document.getElementById('rev-name').innerText = name;
+            document.getElementById('rev-phone').innerText = phone;
+            document.getElementById('rev-address').innerText = address;
+            document.getElementById('rev-product').innerText = productText;
+            document.getElementById('rev-quantity').innerText = quantity;
+
+            document.getElementById('reviewModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('reviewModal').classList.remove('active');
+        }
+
+        // কনফার্ম করলে হোয়াটসঅ্যাপে নিয়ে যাবে
+        function confirmAndSendWhatsApp() {
+            const myPhoneNumber = "8801577298608";
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const productSelect = document.getElementById('product');
+            const productText = productSelect.options[productSelect.selectedIndex].text;
+            const quantity = document.getElementById('quantity').value;
+
             const message = `*নতুন অর্ডার (Pure Mustard BD)*%0A%0A` +
                             `*নাম:* ${name}%0A` +
                             `*ফোন নম্বর:* ${phone}%0A` +
                             `*ঠিকানা:* ${address}%0A` +
-                            `*পণ্যের সাইজ:* ${product}%0A` +
+                            `*পণ্য:* ${productText}%0A` +
                             `*পরিমাণ:* ${quantity} টি%0A%0A` +
-                            `ধন্যবাদ!`;
+                            `অর্ডারটি কনফার্ম করতে চাচ্ছি।`;
 
-            // হোয়াটসঅ্যাপ লিঙ্ক তৈরি
             const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${message}`;
-
-            // নতুন ট্যাবে হোয়াটসঅ্যাপ ওপেন করা
             window.open(whatsappUrl, '_blank');
+            closeModal();
         }
     </script>
 </body>
-  </html>
+</html>
